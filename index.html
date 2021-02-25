@@ -1,0 +1,105 @@
+<!doctype html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang=""> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8" lang=""> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9" lang=""> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang=""> <!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title></title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <style>
+        body {
+            padding-top: 50px;
+            padding-bottom: 20px;
+        }
+    </style>
+    <!-- <link rel="stylesheet" href="css/bootstrap-theme.css"> -->
+    <link rel="stylesheet" href="css/main.css">
+
+    <script src="js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
+</head>
+<body>
+        <!--[if lt IE 8]>
+            <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-6 col-md-offset-3">
+                    <ul class="nav nav-pills well">
+                      <li role="presentation" class="btn-xs active"><a href="index.html">Prototype 1: Single colour</a></li>
+                      <li role="presentation" class="btn-xs"><a href="svg-test.html">Prototype 2: SVG logo</a></li>
+                  </ul>
+              </div>
+          </div>
+      </div>
+
+      <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-6 col-md-offset-3">
+
+                <div id="banner-message">
+                    <!-- <h4>What is this?</h4> -->
+                    <a class="btn btn-primary" role="button" data-toggle="collapse" href="#collapseDetails" aria-expanded="false" aria-controls="collapseDetails">
+                      What is this?
+                  </a>
+                  <div class="collapse" id="collapseDetails">
+                      <div class="well">
+                        <p><strong>Current state of logo upload colour handling</strong></p>
+                        <p>When users upload an SVG graphic to an Editor, there is no option to provide CMYK print values in their SVG. Currently, we handle this by automatically replacing all colours in the graphic with print-approved colours from the palette. This means initially the uploaded logo has completely different colours to what the user has uploaded, but the user can then manually find something they like.</p>
+                        <p><strong>What this prototype is testing</strong></p>
+                        <p>This prototype explores what it would feel like if we would automatically apply the most closely matching colours from the palette as possible.</p>
+                        <p><strong>How does is find the closest match?</strong></p>
+                        <p>This prototype uses "Euclidian Distance" (so, essentially the distance between the three R,G,B values, sort of like Pythagoras) between two sets of <code>RGB</code> values (the one the user uploaded, and the ones we store as <code>display value</code>) to identify the closest matching colour in a set. In this case, it's using the current Rapha primary and secondary palette.</p>
+                        <p><strong>Where could this go?</strong></p>
+                        <p>This could enable a user experience where the user <b>is told</b> that colours in their graphic need to be changed to print-approved colours, and starts them off with a close match - while still giving the option to change manually.</p>
+                        <p>The questions this prototype is exploring are:<br>
+                            <ul><li>Would this improve the user experience of uploading graphics?</li>
+                                <li>Does matching between two RGBs (neither of which properly reference a print output even make sense does it set wrong expectations?</li>
+                                <li>Is Euclidian Distance the right way to find the best match mathematically? <a href="https://stackoverflow.com/questions/9018016/how-to-compare-two-colors-for-similarity-difference" target="_new">Probably not...</a></li>
+                            </ul></p>
+                        </div>
+                    </div>
+                    <hr>
+                    <h4>1. Pick a colour and click "Find Match"</h4>
+                    <input type="color" id="colorpicker" name="favcolor" value="#ff0000">
+                    <button id="findMatchButton" class="btn btn-default">Find match</button>
+                    <hr>
+                    <h4>2. See the closest match here:</h4>
+                    <p>
+                        <div id="square"></div>
+                        <span id="text">...</span>
+                    </p>
+                    <hr>
+                    <h4>Side-by-side comparison</h4>
+                    <table class="table table-condensed">
+                        <tr>
+                            <td width="50%">Input colour</td>
+                            <td width="50%">Closest match</td>
+                        </tr>
+                        <tr>
+                            <td><div class="sidebyside" id="side1"></div></td>
+                            <td><div class="sidebyside" id="side2"></div></td>
+                        </tr>
+                    </table>
+                    <p id="alternatives"></p>
+                    <hr>
+                    <h4>All colours considered in finding closest match:</h4>
+                    <p>Change data set: <button class="btn btn-default btn-xs" id="setPalette1">Rph extended</button> <button class="btn btn-default btn-xs" id="setPalette2">Nb small set</button></p>
+                    <p id="allcolours"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.11.2.min.js"><\/script>')</script>
+
+    <script src="js/vendor/bootstrap.min.js"></script>
+
+    <script src="js/main.js"></script>
+</body>
+</html>
